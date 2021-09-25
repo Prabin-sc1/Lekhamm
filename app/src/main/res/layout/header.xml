@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="10dp"
+    android:background="#000b76"
+    >
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="208dp"
+        android:layout_height="58dp"
+        android:layout_gravity="clip_horizontal"
+
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/berkshire_swash"
+        android:text="Lekham"
+        android:textColor="@color/white"
+        android:textSize="48sp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="280dp"
+        android:layout_height="58dp"
+        android:layout_gravity="right"
+
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/berkshire_swash"
+        android:gravity="right"
+        android:text="Developed by DRY group"
+        android:textColor="@color/white"
+        android:textSize="19sp" />
+
+</LinearLayout>

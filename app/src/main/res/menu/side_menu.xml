@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item android:title="Group member">
+
+            <menu>
+                <item
+                    android:icon="@drawable/person"
+                    android:title="Prabin kumar Shah" />
+
+                <item
+
+                    android:icon="@drawable/person"
+                    android:title="Praween Chhetri" />
+
+                <item
+
+                    android:icon="@drawable/person"
+                    android:title="Ranjit Rai" />
+            </menu>
+        </item>
+
+
+    </group>
+
+</menu>
