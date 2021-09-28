@@ -184,8 +184,9 @@
         </androidx.cardview.widget.CardView>
 
         <ImageView
+            android:paddingTop="15dp"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="150dp"
             android:src="@drawable/ic_wavee"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

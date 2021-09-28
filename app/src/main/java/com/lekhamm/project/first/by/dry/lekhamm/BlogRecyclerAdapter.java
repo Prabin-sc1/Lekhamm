@@ -23,15 +23,17 @@ import java.util.Date;
 import java.util.List;
 
 
-public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapter.ViewHolder> {
+public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapter.ViewHolder> implements Filterable{
     private Context context;
     private List<Blog> blogList;
+    private List<Blog> backup;
+
 
 
     public BlogRecyclerAdapter(Context context, List<Blog> blogList) {
         this.context = context;
         this.blogList = blogList;
-
+        backup = new ArrayList<>(blogList);
     }
 
     @NonNull
@@ -74,6 +76,37 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
         return blogList.size();
     }
 
+    @Override
+    public Filter getFilter() {
+        return filter;
+    }
+    Filter filter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            ArrayList<Blog> filteredData = new ArrayList<>();
+            if (constraint.toString().isEmpty())
+                filteredData.addAll(backup);
+            else {
+                for (Blog obj : backup) {
+                    if (obj.getTitle().toString().toLowerCase().contains(constraint.toString().toLowerCase())) {
+                        filteredData.add(obj);
+                    }
+                }
+            }
+                FilterResults results = new FilterResults();
+                results.values = filteredData;
+                return results;
+            }
+
+
+
+            @Override
+            protected void publishResults (CharSequence constraint, FilterResults results){
+                blogList.clear();
+                blogList.addAll((ArrayList<Blog>) results.values);
+                notifyDataSetChanged();
+        }
+    };
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView title;

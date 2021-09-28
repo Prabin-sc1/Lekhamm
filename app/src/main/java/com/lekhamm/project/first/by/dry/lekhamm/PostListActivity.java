@@ -13,6 +13,10 @@ import android.view.MenuItem;
 import android.view.View;
 
 
+import androidx.appcompat.widget.SearchView;
+
+
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -69,13 +73,28 @@ public class PostListActivity extends AppCompatActivity {
                     startActivity(new Intent(PostListActivity.this, AddPostActivity.class));
                     finish();
                 }
+
             }
         });
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.list_main_menu, menu);
+        getMenuInflater().inflate(R.menu.search_menu, menu);
+        MenuItem item = menu.findItem(R.id.search_menu);
+        SearchView searchView = (SearchView) item.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                blogRecyclerAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -88,7 +107,7 @@ public class PostListActivity extends AppCompatActivity {
                     startActivity(new Intent(PostListActivity.this, LoginActivity.class));
                     finish();
                 }
-
+                break;
 
         }
 
