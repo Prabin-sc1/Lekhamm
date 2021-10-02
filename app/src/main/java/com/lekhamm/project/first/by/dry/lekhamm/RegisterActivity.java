@@ -4,12 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +21,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.collection.LLRBNode;
 
 public class RegisterActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
@@ -33,6 +36,7 @@ public class RegisterActivity extends AppCompatActivity {
     private TextInputEditText confirmPassword;
 
     private Button signup;
+    private ProgressBar progressBar;
 
 
     @Override
@@ -42,8 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_register);
-        progressDialog = new ProgressDialog(this);
-
+        progressBar = findViewById(R.id.progressId);
 
         email = findViewById(R.id.emailEditId);
         password = findViewById(R.id.passwordEditId);
@@ -58,6 +61,7 @@ public class RegisterActivity extends AppCompatActivity {
         already.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mAuth.signOut();
                 startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                 finish();
             }
@@ -70,7 +74,6 @@ public class RegisterActivity extends AppCompatActivity {
                 String confirmPwdString = confirmPassword.getText().toString();
 
                 if (emailString.equals("") || passwordString.equals("") || confirmPwdString.equals("")) {
-
                     Toast.makeText(RegisterActivity.this, "Please fill your credentials correctly", Toast.LENGTH_SHORT).show();
                 } else if (!confirmPwdString.equals(passwordString)) {
                     Toast.makeText(RegisterActivity.this, "Password doesn't match!", Toast.LENGTH_SHORT).show();
@@ -82,16 +85,19 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void signup(String emailString, String passwordString) {
+        progressBar.setVisibility(View.VISIBLE);
         mAuth.createUserWithEmailAndPassword(emailString, passwordString).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(Task<AuthResult> task) {
                 if (task.isSuccessful()) {
+                    progressBar.setVisibility(View.INVISIBLE);
                     Toast.makeText(RegisterActivity.this, "Account created successfully", Toast.LENGTH_SHORT).show();
+                    mAuth.signOut();
                     startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                     finish();
 
                 } else {
-                    Toast.makeText(RegisterActivity.this, "Failed to create account", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
 
