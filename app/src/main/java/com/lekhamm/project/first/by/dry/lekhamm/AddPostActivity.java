@@ -108,7 +108,7 @@ public class AddPostActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.action_back) {
-            startActivity(new Intent(AddPostActivity.this, PostListActivity.class));
+            startActivity(new Intent(AddPostActivity.this, BlogListActivity.class));
             finish();
         }
         return super.onOptionsItemSelected(item);
@@ -157,7 +157,7 @@ public class AddPostActivity extends AppCompatActivity {
 
                                     newPost.setValue(dataToSave);
                                     mProgressDialog.dismiss();
-                                    startActivity(new Intent(AddPostActivity.this, PostListActivity.class));
+                                    startActivity(new Intent(AddPostActivity.this, BlogListActivity.class));
                                     finish();
 
                                 }

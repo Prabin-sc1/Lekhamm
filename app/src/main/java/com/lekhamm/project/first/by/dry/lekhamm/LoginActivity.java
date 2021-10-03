@@ -161,7 +161,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (mUser != null) {
                     Toast.makeText(LoginActivity.this, "Signed In", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(LoginActivity.this, PostListActivity.class));
+                    startActivity(new Intent(LoginActivity.this, BlogListActivity.class));
                     finish();
                 } else {
                     Toast.makeText(LoginActivity.this, "Not Signed In", Toast.LENGTH_SHORT).show();
@@ -190,7 +190,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    startActivity(new Intent(LoginActivity.this, PostListActivity.class));
+                    startActivity(new Intent(LoginActivity.this, BlogListActivity.class));
                     finish();
                 } else {
                     Toast.makeText(LoginActivity.this, "Please register first!", Toast.LENGTH_SHORT).show();
@@ -236,7 +236,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
-            startActivity(new Intent(getApplicationContext(), PostListActivity.class));
+            startActivity(new Intent(getApplicationContext(), BlogListActivity.class));
             finish();
 
         }
@@ -277,7 +277,7 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("TAG", "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            startActivity(new Intent(LoginActivity.this, PostListActivity.class));
+                            startActivity(new Intent(LoginActivity.this, BlogListActivity.class));
                             finish();
                             Toast.makeText(getApplicationContext(), "Signed in with google", Toast.LENGTH_SHORT).show();
                             updateUI(user);
